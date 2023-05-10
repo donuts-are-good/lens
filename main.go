@@ -12,11 +12,18 @@ import (
 )
 
 func main() {
+	var dir string
+	var err error
 
-	dir, err := os.Getwd()
-	if err != nil {
-		fmt.Println("Error getting current directory:", err)
-		return
+	// Check for command-line arguments
+	if len(os.Args) > 1 {
+		dir = os.Args[1]
+	} else {
+		dir, err = os.Getwd()
+		if err != nil {
+			fmt.Println("Error getting current directory:", err)
+			return
+		}
 	}
 
 	entries, err := os.ReadDir(dir)
@@ -38,12 +45,14 @@ func main() {
 		fileType := ""
 		fileExt := strings.ToUpper(filepath.Ext(info.Name()))
 
+		isExecutable := info.Mode().Perm()&0111 != 0
+
 		switch {
 		case entry.IsDir():
 			fileType = "DIR"
 		case info.Mode()&os.ModeSymlink != 0:
 			fileType = "LINK"
-		case info.Mode().IsRegular() && (fileExt == ".EXE" || fileExt == ".BIN"):
+		case info.Mode().IsRegular() && isExecutable:
 			fileType = "EXE"
 			entry = &customDirEntry{
 				entry: entry,
@@ -53,7 +62,7 @@ func main() {
 			if len(fileExt) > 0 {
 				fileType = fileExt[1:]
 			} else {
-				fileType = "UNKNOWN"
+				fileType = "..?"
 			}
 		}
 
