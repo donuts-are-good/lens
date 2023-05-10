@@ -15,7 +15,6 @@ func main() {
 	var dir string
 	var err error
 
-	// Check for command-line arguments
 	if len(os.Args) > 1 {
 		dir = os.Args[1]
 	} else {
@@ -49,20 +48,20 @@ func main() {
 
 		switch {
 		case entry.IsDir():
-			fileType = "DIR"
+			fileType = "📁 DIR"
 		case info.Mode()&os.ModeSymlink != 0:
-			fileType = "LINK"
+			fileType = "🔗 LINK"
 		case info.Mode().IsRegular() && isExecutable:
-			fileType = "EXE"
+			fileType = "⚙️ EXE"
 			entry = &customDirEntry{
 				entry: entry,
 				name:  "*" + entry.Name(),
 			}
 		default:
 			if len(fileExt) > 0 {
-				fileType = fileExt[1:]
+				fileType = "📄 " + fileExt[1:]
 			} else {
-				fileType = "..?"
+				fileType = "❓ ..?"
 			}
 		}
 
