@@ -5,7 +5,7 @@ lens is like 'ls' for humans: human readable filesizes, emojis to represent file
 
 
 ## 🚀 usage 
-your best bet is to download a releasre that corresponds with your os and architecture, then move `lens` to `/usr/bin/lens` or in your local bin folder, then alias it to `ll` or something. it's nice, but using it as a drop in replacement for `ls` could conflict with scripts that use `ls` expecting the output of `ls`.
+your best bet is to download a release that corresponds with your os and architecture, then move `lens` to `/usr/bin/lens` or in your local bin folder, then alias it to `ll` or something. it's nice, but using it as a drop in replacement for `ls` could conflict with scripts that use `ls` expecting the output of `ls`.
 
 
 **view the current directory:**
